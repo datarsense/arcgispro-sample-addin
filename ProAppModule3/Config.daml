@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ArcGIS defaultAssembly="ProAppModule3.dll"
+        defaultNamespace="ProAppModule3"
+        xmlns="http://schemas.esri.com/DADF/Registry"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://schemas.esri.com/DADF/Registry file:///C:/Program%20Files/ArcGIS/Pro/bin/ArcGIS.Desktop.Framework.xsd">
+
+  <AddInInfo id="{63e68afa-6999-4a28-9a19-4ac5e5f3aedf}" version="1.0" desktopVersion="2.7.0.26828">
+    <Name>ProAppModule3</Name>   
+    <Description>ProAppModule3 description</Description>
+    <Image>Images\AddinDesktop32.png</Image>
+    <Author>datarsense</Author>
+    <Company>Acme</Company>
+    <Date>25/01/2022 22:30:50</Date>
+    <Subject>Framework</Subject>
+    <!-- Note subject can be one or more of these topics:
+                    Content, Framework, Editing, Geodatabase, Geometry, Geoprocessing, Layouts, Map Authoring, Map Exploration -->
+  </AddInInfo>
+
+  <modules>
+    <insertModule id="ProAppModule3_Module" className="Module1" autoLoad="false" caption="Module1">
+    </insertModule>
+  </modules>
+</ArcGIS>

@@ -1,0 +1,90 @@
+name: MSBuild
+
+on: [push]
+
+env:
+  # Path to the solution file relative to the root of the project.
+  SOLUTION_FILE_PATH: ProAppModule3.sln
+
+  # Configuration type to build.
+  # You can convert this to a build matrix if you need coverage of multiple configuration types.
+  # https://docs.github.com/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix
+  BUILD_CONFIGURATION: Release
+
+jobs:
+  build:
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        arcgisproversion: ['2.7.0.26828', '2.8.0.29751', '2.9.0.32739']
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Add MSBuild to PATH
+      uses: microsoft/setup-msbuild@v1.0.2
+
+    - name: Build
+      working-directory: ${{env.GITHUB_WORKSPACE}}
+      # Add additional options to the MSBuild command line here (like platform or verbosity level).
+      # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
+      run: | 
+        ((Get-Content -path ProAppModule3\Config.daml -Raw) -replace '2.7.0.26828', '${{ matrix.arcgisproversion }}') | Set-Content -Path ProAppModule3\Config.daml
+        ((Get-Content -path ProAppModule3\ProAppModule3.csproj -Raw) -replace '2.7.0.26828', '${{ matrix.arcgisproversion }}') | Set-Content -Path ProAppModule3\ProAppModule3.csproj
+        msbuild /m /p:Configuration=${{env.BUILD_CONFIGURATION}} /t:clean ${{env.SOLUTION_FILE_PATH}}
+        msbuild /m /p:Configuration=${{env.BUILD_CONFIGURATION}} /t:restore ${{env.SOLUTION_FILE_PATH}}
+        msbuild /m /p:Configuration=${{env.BUILD_CONFIGURATION}} ${{env.SOLUTION_FILE_PATH}}
+
+    - name: Archive produced esriAddinX addins
+      uses: actions/upload-artifact@v2
+      with:
+        name: arcgispro-sample-addin-${{ matrix.arcgisproversion }}
+        path: |
+          ProAppModule3\bin\Release\*.esriAddinX
+        retention-days: 5
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    if: startsWith(github.event.ref, 'refs/tags/')
+    steps:
+      - name: Download all workflow run artifacts
+        uses: actions/download-artifact@v2
+      - name: Display structure of downloaded files
+        run: ls -R
+      - name: Create release
+        uses: actions/create-release@v1
+        id: create_release
+        with:
+          draft: false
+          prerelease: false
+          release_name: ${{ github.ref }}
+          tag_name: ${{ github.ref }}
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+      - name: Upload Arcgis 2.7 addin as release asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./arcgispro-sample-addin-2.7.0.26828/ProAppModule3.esriAddinX
+          asset_name: ProAppModule3_2.7.0.26828.esriAddinX
+          asset_content_type: application/zip
+      - name: Upload Arcgis 2.8 addin as release asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./arcgispro-sample-addin-2.8.0.29751/ProAppModule3.esriAddinX
+          asset_name: ProAppModule3_2.8.0.29751.esriAddinX
+          asset_content_type: application/zip
+      - name: Upload Arcgis 2.9 addin as release asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./arcgispro-sample-addin-2.9.0.32739/ProAppModule3.esriAddinX
+          asset_name: ProAppModule3_2.9.0.32739.esriAddinX
+          asset_content_type: application/zip
