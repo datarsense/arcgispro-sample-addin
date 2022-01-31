@@ -4,7 +4,7 @@ on: [push]
 
 env:
   # Path to the solution file relative to the root of the project.
-  SOLUTION_FILE_PATH: ProAppModule3.sln
+  SOLUTION_FILE_PATH: ArcgisProToolboxPackage.sln
 
   # Configuration type to build.
   # You can convert this to a build matrix if you need coverage of multiple configuration types.
@@ -29,7 +29,7 @@ jobs:
       # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
       run: | 
         ((Get-Content -path ProAppModule3\Config.daml -Raw) -replace '2.7.0.26828', '${{ matrix.arcgisproversion }}') | Set-Content -Path ProAppModule3\Config.daml
-        ((Get-Content -path ProAppModule3\ProAppModule3.csproj -Raw) -replace '2.7.0.26828', '${{ matrix.arcgisproversion }}') | Set-Content -Path ProAppModule3\ProAppModule3.csproj
+        ((Get-Content -path ProAppModule3\ArcgisProToolboxPackage.csproj -Raw) -replace '2.7.0.26828', '${{ matrix.arcgisproversion }}') | Set-Content -Path ProAppModule3\ArcgisProToolboxPackage.csproj
         msbuild /m /p:Configuration=${{env.BUILD_CONFIGURATION}} /t:clean ${{env.SOLUTION_FILE_PATH}}
         msbuild /m /p:Configuration=${{env.BUILD_CONFIGURATION}} /t:restore ${{env.SOLUTION_FILE_PATH}}
         msbuild /m /p:Configuration=${{env.BUILD_CONFIGURATION}} ${{env.SOLUTION_FILE_PATH}}
@@ -67,8 +67,8 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./arcgispro-sample-addin-2.7.0.26828/ProAppModule3.esriAddinX
-          asset_name: ProAppModule3_2.7.0.26828.esriAddinX
+          asset_path: ./arcgispro-sample-addin-2.7.0.26828/ArcgisProToolboxPackage.esriAddinX
+          asset_name: ArcgisProToolboxPackage_2.7.0.26828.esriAddinX
           asset_content_type: application/zip
       - name: Upload Arcgis 2.8 addin as release asset
         uses: actions/upload-release-asset@v1
@@ -76,8 +76,8 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./arcgispro-sample-addin-2.8.0.29751/ProAppModule3.esriAddinX
-          asset_name: ProAppModule3_2.8.0.29751.esriAddinX
+          asset_path: ./arcgispro-sample-addin-2.8.0.29751/ArcgisProToolboxPackage.esriAddinX
+          asset_name: ArcgisProToolboxPackage_2.8.0.29751.esriAddinX
           asset_content_type: application/zip
       - name: Upload Arcgis 2.9 addin as release asset
         uses: actions/upload-release-asset@v1
@@ -85,6 +85,6 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./arcgispro-sample-addin-2.9.0.32739/ProAppModule3.esriAddinX
-          asset_name: ProAppModule3_2.9.0.32739.esriAddinX
+          asset_path: ./arcgispro-sample-addin-2.9.0.32739/ArcgisProToolboxPackage.esriAddinX
+          asset_name: ArcgisProToolboxPackage_2.9.0.32739.esriAddinX
           asset_content_type: application/zip
