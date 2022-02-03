@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("ProAppModule3")]
+[assembly: AssemblyTitle("ArcgisProToolboxPackage")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Acme")]
-[assembly: AssemblyProduct("ProAppModule3")]
+[assembly: AssemblyProduct("ArcgisProToolboxPackage")]
 [assembly: AssemblyCopyright("Copyright © Acme 2022")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

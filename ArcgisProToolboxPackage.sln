@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Express 15 for Windows Desktop
 VisualStudioVersion = 15.0.28307.1778
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProAppModule3", "ProAppModule3\ProAppModule3.csproj", "{63E68AFA-6999-4A28-9A19-4AC5E5F3AEDF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArcgisProToolboxPackage", "ProAppModule3\ArcgisProToolboxPackage.csproj", "{63E68AFA-6999-4A28-9A19-4AC5E5F3AEDF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
