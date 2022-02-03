@@ -5,7 +5,7 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://schemas.esri.com/DADF/Registry file:///C:/Program%20Files/ArcGIS/Pro/bin/ArcGIS.Desktop.Framework.xsd">
 
-  <AddInInfo id="{63e68afa-6999-4a28-9a19-4ac5e5f3aedf}" version="1.0" desktopVersion="2.7.0.26828">
+  <AddInInfo id="{63e68afa-6999-4a28-9a19-4ac5e5f3aedf}" version="0.1a" desktopVersion="2.7.0.26828">
     <Name>ProAppModule3</Name>   
     <Description>ProAppModule3 description</Description>
     <Image>Images\AddinDesktop32.png</Image>
